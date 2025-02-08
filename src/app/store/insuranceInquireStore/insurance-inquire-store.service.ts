@@ -26,6 +26,7 @@ export class InsuranceInquireStoreService {
     this.store.setLoading(true)
     this.api.inquireInsurance(data).pipe(take(1)).subscribe({
       next: (res) => {
+        debugger
         this.store.update({inquireResponse: res.result});
         this.router.navigate([`${ERoutes.insuranceShow}/${ERoutes.additionalData}`]);
       },

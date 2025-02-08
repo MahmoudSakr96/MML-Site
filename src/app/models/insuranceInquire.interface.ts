@@ -2,25 +2,13 @@ import { FormControl } from "@angular/forms";
 import { EInsurancePurpose, EVehicleRegisterType } from "../core/enums/insurance-inquire";
 
 export interface IInsuranceInquireDTO {
-  purpose: EInsurancePurpose;
-  vehicleRegisterType: number;
   idNumber: number;
-  serialNumber: number;
   startDate: string | null;
-  vehicleYear: number;
-  sellerId: number;
-  customsNumber: number,
 }
 
 export interface IInsuranceInquireFormBuilder extends ITermsConditionsAgree {
-  purpose: FormControl<EInsurancePurpose>;
-  vehicleRegisterType: FormControl<EVehicleRegisterType>;
   idNumber: FormControl<number | null>;
-  serialNumber: FormControl<number | null>;
   startDate: FormControl<string | null>;
-  vehicleYear: FormControl<number | null>;
-  sellerId: FormControl<number | null>;
-  customsNumber: FormControl<number | null>;
 }
 
 export interface ITermsConditionsAgree{

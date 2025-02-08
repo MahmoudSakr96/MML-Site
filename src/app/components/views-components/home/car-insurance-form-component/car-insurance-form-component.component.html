@@ -4,19 +4,7 @@
             <aside class="col-lg-4 col-md-6 my-3">
                 <div class="mb-4 d-flex align-items-center flex-nowrap">
                     <app-base-label-component classes="form-label mb-0 me-3" [required]="true">
-                        {{insuranceFormStructure.insurancePurpose.label | translate}} </app-base-label-component>
-                    <div class="d-flex flex-nowrap">
-                        @for(item of insuranceFormStructure.insurancePurpose.radioButtons; track item.id; let index =
-                        $index){
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" formControlName="purpose" type="radio" [id]="item.id + index"
-                                [value]="item.value">
-                            <label class="form-check-label text-white font_size__10"
-                                [for]="item.id + index">{{item.label |
-                                translate}}</label>
-                        </div>
-                        }
-                    </div>
+                        {{'views.home.insuranceForm.insuredId' | translate}} </app-base-label-component>
                 </div>
                 <div class="row mb-2">
                     <div class="col">
@@ -33,122 +21,9 @@
                             <app-input-validation-alert-component> {{'errors.idNumber' | translate}} </app-input-validation-alert-component>
                         }
                     </div>
-    
-                    @if(getControl('purpose')?.value === EInsurancePurpose.ownershipTransfer){
-                        <div class="col">
-                            <p-floatLabel>
-                                <p-inputNumber [maxlength]="10" [minlength]="10" formControlName="sellerId" inputStyleClass="form-control" inputId="sellerId" [useGrouping]="false">
-                                </p-inputNumber>
-                                <label class="form-label base_label d-flex align-items-center"
-                                    for="sellerId">
-                                    <span class="me-1">{{'views.home.insuranceForm.sellerId' | translate}}</span> 
-                                    <span class="required_input text-danger font_size__16 me-1"> * </span>
-                                </label>
-                            </p-floatLabel>
-                            @if(controlNotValid('sellerId')){
-                                <app-input-validation-alert-component> {{'errors.idNumber' | translate}} </app-input-validation-alert-component>
-                            }
-                        </div>
-                    }
                 </div>
             </aside>
-            <aside class="col-lg-4 col-md-6 my-3">
-                <div class="mb-4 d-flex align-items-center">
-                    <app-base-label-component classes="form-label mb-0 me-3"
-                        [required]="true">{{insuranceFormStructure.registrationType.label|
-                        translate}}</app-base-label-component>
-                    <div>
-                        @for(item of insuranceFormStructure.registrationType.radioButtons; track item.id; let index =
-                        $index){
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" formControlName="vehicleRegisterType" type="radio" [id]="item.id + index"
-                                [value]="item.value">
-                            <label class="form-check-label text-white font_size__10"
-                                [for]="item.id + index">{{item.label |
-                                translate}}</label>
-                        </div>
-                        }
-                    </div>
-                </div>
-                <div class="row flex-nowrap mb-2">
-
-                
-                @if(getControl('vehicleRegisterType')?.value !== EVehicleRegisterType.customcards){
-                    <aside class="col flex-fill">
-                        <p-floatLabel>
-                            <p-inputNumber [maxlength]="9" [minlength]="6" formControlName="serialNumber" inputStyleClass="form-control" inputId="serialInput" [useGrouping]="false">
-                            </p-inputNumber>
-                            <!-- <p-autoComplete [minLength]="6" [maxlength]="9" formControlName="serialNumber" inputStyleClass="form-control" inputId="serialInput">
-                                <ng-template let-car pTemplate="item">
-                                    <div class="flex align-items-center gap-2">
-                                        {{ car }} <span class="primary_color"> BMW </span>
-                                    </div>
-                                </ng-template>
-                            </p-autoComplete> -->
-                            <label class="form-label base_label d-flex align-items-center"
-                                for="serialInput">
-                                <span class="me-1">{{'views.home.insuranceForm.serialNumber' | translate}}</span> 
-                                <span class="required_input text-danger font_size__16 me-1"> * </span>
-                                <!-- <app-base-tooltip-component popoverContent="carIdExample.png" [popoverType]="EPopover.img"></app-base-tooltip-component> -->
-                            </label>
-                        </p-floatLabel>
-                        <!-- <app-base-label-component [isPopover]="true" [popoverType]="EPopover.img"
-                            popoverContent="carIdExample.png" classes="form-label" [required]="true"
-                            for="serialInput">{{'views.home.insuranceForm.serialNumber' |
-                            translate}}</app-base-label-component>
-                        <p-autoComplete [minLength]="10" [maxlength]="10" formControlName="serialNumber" inputStyleClass="form-control" inputId="serialInput">
-                            <ng-template let-car pTemplate="item">
-                                <div class="flex align-items-center gap-2">
-                                    {{ car }} <span class="primary_color"> BMW </span>
-                                </div>
-                            </ng-template>
-                        </p-autoComplete> -->
-                        @if(controlNotValid('serialNumber')){
-                            <app-input-validation-alert-component> {{'errors.serialNumber' | translate}} </app-input-validation-alert-component>
-                        }
-                    </aside>
-                }
-                @else(){
-                    <aside class="col flex-fill">
-                        <p-floatLabel>
-                            <p-inputNumber [maxlength]="10" [minlength]="10" formControlName="customsNumber" inputStyleClass="form-control" inputId="customsNumber" [useGrouping]="false">
-                            </p-inputNumber>
-                            <label class="form-label base_label d-flex align-items-center"
-                                for="customsNumber">
-                                <span class="me-1">{{'views.home.insuranceForm.customsNumber' | translate}}</span> 
-                                <span class="required_input text-danger font_size__16 me-1"> * </span>
-                                <!-- <app-base-tooltip-component popoverContent="custom-num.png" [popoverType]="EPopover.img"></app-base-tooltip-component> -->
-                            </label>
-                        </p-floatLabel>
-                        <!-- <app-base-label-component [isPopover]="true" [popoverType]="EPopover.img"
-                        popoverContent="custom-num.png" classes="form-label"
-                            for="customsNumber" [required]="true">{{'views.home.insuranceForm.customsNumber' | translate}}</app-base-label-component>
-                        <p-inputNumber [maxlength]="10" [minlength]="10" formControlName="customsNumber" inputStyleClass="form-control" inputId="customsNumber" [useGrouping]="false">
-                        </p-inputNumber> -->
-                        @if(controlNotValid('customsNumber')){
-                            <app-input-validation-alert-component> {{'errors.required' | translate}} </app-input-validation-alert-component>
-                        }
-                    </aside>
-                    <aside class="col flex-fill">
-                        <p-floatLabel>
-                            <p-dropdown formControlName="vehicleYear" inputId="vehicleYear" [options]="dateFactoryService.createDateLists(getControl('idNumber')?.value).years"></p-dropdown>
-                            <label class="form-label base_label d-flex align-items-center"
-                                for="vehicleYear">
-                                <span class="me-1">{{'views.home.insuranceForm.vehicleYear' | translate}}</span> 
-                                <span class="required_input text-danger font_size__16 me-1"> * </span>
-                            </label>
-                        </p-floatLabel>
-                        <!-- <app-base-label-component classes="form-label"
-                            for="vehicleYear">{{'views.home.insuranceForm.vehicleYear' | translate}}</app-base-label-component>
-                            <p-dropdown formControlName="vehicleYear" inputId="vehicleYear" [options]="dateFactoryService.createDateLists(getControl('idNumber')?.value).years"></p-dropdown> -->
-                        @if(controlNotValid('vehicleYear')){
-                            <app-input-validation-alert-component> {{'errors.required' | translate}} </app-input-validation-alert-component>
-                        }
-                    </aside>
-                }
-            </div>
-            </aside>
-            <aside class="col-lg-4 col-md-12 my-3">
+            <aside class="col-lg-6 col-md-12 my-3">
                 <div class="h-100 row">
                     <div class="col">
                         <div class="d-flex flex-column h-100">

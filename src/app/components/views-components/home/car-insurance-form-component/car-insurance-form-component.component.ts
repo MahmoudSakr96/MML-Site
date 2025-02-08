@@ -43,49 +43,9 @@ export class CarInsuranceFormComponentComponent implements OnInit {
   minDate = this.datePicker.getNext(this.datePicker.getToday());
   maxDate = this.datePicker.getNext(this.minDate,undefined, 30);
   isLoading = toSignal(this.insuranceInquireStoreQuery.selectLoading());
-  insuranceFormStructure: IFormStructure = {
-    insurancePurpose: {
-      label: 'views.home.insuranceForm.insurancePurpose',
-      name: 'purpose',
-      radioButtons: [
-        {
-          label: 'views.home.insuranceForm.newInsurance',
-          id: 'insurancePurposeRadio',
-          value: EInsurancePurpose.newInsurance,
-        },
-        {
-          label: 'views.home.insuranceForm.ownershipTransfer',
-          id: 'insurancePurposeRadio',
-          value: EInsurancePurpose.ownershipTransfer,
-        },
-      ]
-    },
-    registrationType: {
-      label: 'views.home.insuranceForm.registerType',
-      name: 'vehicleType',
-      radioButtons: [
-        {
-          label: 'views.home.insuranceForm.form',
-          id: 'registerTypeRadio',
-          value: EVehicleRegisterType.form,
-        },
-        {
-          label: 'views.home.insuranceForm.customCard',
-          id: 'registerTypeRadio',
-          value: EVehicleRegisterType.customcards,
-        },
-      ]
-    }
-  }
   insuranceForm: FormGroup = this.fb.group<IInsuranceInquireFormBuilder>({
-    sellerId: this.fb.control(null),
     idNumber: this.fb.nonNullable.control(null, INSURNACE_INQUIRE_VALIDATORS['idNumber']),
-    purpose: this.fb.nonNullable.control(EInsurancePurpose.newInsurance),
-    serialNumber: this.fb.nonNullable.control(null, INSURNACE_INQUIRE_VALIDATORS['serialNumber']),
     startDate: this.fb.nonNullable.control(this.dateAdapter.toModel(this.minDate), INSURNACE_INQUIRE_VALIDATORS['required']),
-    vehicleRegisterType: this.fb.nonNullable.control(EVehicleRegisterType.form),
-    vehicleYear: this.fb.control(null),
-    customsNumber: this.fb.control(null),
     agreedTermsConditions: this.fb.nonNullable.control(false, [Validators.requiredTrue])
   })
   get EPopover() {
@@ -99,8 +59,6 @@ export class CarInsuranceFormComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.purposeChange();
-    this.vehicleTypeChange()
   }
 
   vehicleYearValidator() {
@@ -128,30 +86,6 @@ export class CarInsuranceFormComponentComponent implements OnInit {
     this.vehicleYearValidator()
     this.serialNumberValidator()
     this.sellerIdValidator()
-  }
-  purposeChange() {
-    const purpose = this.insuranceForm.controls['purpose'];
-    const vehicleType = this.insuranceForm.controls['vehicleRegisterType'];
-    purpose.valueChanges.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe({
-      next: (res) => {
-        if (res === EInsurancePurpose.ownershipTransfer && vehicleType.value === EVehicleRegisterType.customcards) {
-          vehicleType.setValue(EVehicleRegisterType.form);
-        }
-        this.updateInputsValidations();
-      }
-    });
-  }
-  vehicleTypeChange() {
-    const purpose = this.insuranceForm.controls['purpose'];
-    const vehicleType = this.insuranceForm.controls['vehicleRegisterType'];
-    vehicleType.valueChanges.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe({
-      next: (res) => {
-        if (res === EVehicleRegisterType.customcards && purpose.value === EInsurancePurpose.ownershipTransfer) {
-          purpose.setValue(EInsurancePurpose.newInsurance);
-        }
-        this.updateInputsValidations();
-      }
-    });
   }
 
   controlNotValid(controlName: string) {

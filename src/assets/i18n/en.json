@@ -68,6 +68,7 @@
             },
             "insuranceForm": {
                 "insurancePurpose": "Insurance Purpose",
+                "insuredId": "Insurance applicant ID number",
                 "newInsurance": "New Insurance",
                 "ownershipTransfer": "Ownership Transfer",
                 "registerType": "Vehicle Register Type",

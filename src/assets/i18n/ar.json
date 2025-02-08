@@ -68,6 +68,7 @@
         },
         "insuranceForm": {
           "insurancePurpose": "الغرض من التأمين",
+          "insuredId": "رقم هوية طالب التأمين",
           "newInsurance": "التأمين الجديد",
           "ownershipTransfer": "نقل الملكية",
           "registerType": "نوع تسجيل المركبة",

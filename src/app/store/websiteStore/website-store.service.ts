@@ -27,20 +27,17 @@ export class WebsiteStoreService {
         error:(err:IErrorResponse)=>{this.store.update({isContacting:false})}
     })
   }
+  
   getFaqs(){
-    if(!this.store.getValue().faqs?.length){
-      this.store.setLoading(true)
-      return this.api.getFaqs().pipe(take(1)).subscribe({
-          next:(res)=>{
-            this.store.update({faqs:res.result})
-            this.store.setLoading(false)
-          },
-          complete:()=>{this.store.setLoading(false)},
-          error:(err:IErrorResponse)=>{this.store.setLoading(false)}
-      })
-    }
-    return null
-  }
+    return this.api.getFaqs().pipe(take(1)).subscribe({
+      next:(res)=>{
+        this.store.update({faqs:res.result})
+        this.store.setLoading(false)
+      },
+      complete:()=>{this.store.setLoading(false)},
+      error:(err:IErrorResponse)=>{this.store.setLoading(false)}
+  })
+}
   getAllBlogs(data:IPagination){
     this.store.setLoading(true)
     return this.api.getAllBlogs(data).pipe(take(1)).subscribe({
